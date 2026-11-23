@@ -400,8 +400,35 @@ function drawMap(viewWorldW = width) {
           rect(tileX + 10, tileY + 2, 20, TILE_SIZE - 2, 8);
           rect(tileX + 2, tileY + 12, 8, 12, 4);
           rect(tileX + 30, tileY + 8, 8, 12, 4);
+
+          // 仙人掌主幹直紋脊線（保留經典仙人掌辨識度）
+          fill("#1B4332");
+          rect(tileX + 15, tileY + 6, 2, TILE_SIZE - 9, 1);
+          rect(tileX + 23, tileY + 6, 2, TILE_SIZE - 9, 1);
+
+          let spikePulse = sin(frameCount * 0.15 + col * 0.5 + row * 0.3);
+          let spikeAlpha = map(spikePulse, -1, 1, 120, 255);
+
+          // 細長俐落的純白高光刺針（無外暈、不長頂角，貼合仙人掌輪廓）
+          fill(255, 253, 240, spikeAlpha);
+          // 主幹左側刺針
+          triangle(tileX + 10, tileY + 7, tileX + 5, tileY + 8.5, tileX + 10, tileY + 10);
+          triangle(tileX + 10, tileY + 28, tileX + 5, tileY + 29.5, tileX + 10, tileY + 31);
+          // 主幹右側刺針
+          triangle(tileX + 30, tileY + 5, tileX + 35, tileY + 6.5, tileX + 30, tileY + 8);
+          triangle(tileX + 30, tileY + 24, tileX + 35, tileY + 25.5, tileX + 30, tileY + 27);
+          // 左右手腕外側刺針
+          triangle(tileX + 2, tileY + 16.5, tileX - 3, tileY + 18, tileX + 2, tileY + 19.5);
+          triangle(tileX + 38, tileY + 12.5, tileX + 43, tileY + 14, tileX + 38, tileY + 15.5);
+
+          // 柱身表面小刺針高光點（加強整體刺感）
+          fill(255, 243, 176, spikeAlpha);
+          triangle(tileX + 14, tileY + 13, tileX + 12, tileY + 14, tileX + 14, tileY + 15);
+          triangle(tileX + 26, tileY + 19, tileX + 28, tileY + 20, tileX + 26, tileY + 21);
+
           if (row > 0 && levelMap[row - 1][col] !== 'K') {
-            fill("#E63946");
+            let flowerAlpha = map(spikePulse, -1, 1, 200, 255);
+            fill(230, 57, 70, flowerAlpha);
             ellipse(tileX + 20, tileY + 2, 10, 8);
           }
           continue;
