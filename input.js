@@ -4,7 +4,7 @@
 
 let mobileDashLocked = false;
 
-let dashToggleActive = false; // <--- 新增這 3 行
+let dashToggleActive = false;
 
 // 手機觸控虛擬按鍵狀態
 let touchControls = {
@@ -38,6 +38,13 @@ function getMobileButtonsLayout() {
 }
 
 function updateMobileTouchState() {
+  if (gameState === "DYING_ANIMATION") {
+    touchControls = { left: false, right: false, down: false, jump: false, fire: false };
+    prevTouchJump = false;
+    prevTouchFire = false;
+    return;
+  }
+
   let activePointers = [];
   if (touches && touches.length > 0) {
     for (let t of touches) activePointers.push({ x: t.x, y: t.y });
@@ -168,6 +175,10 @@ function triggerDropReservedItem() {
 
 function handlePointerTap(px, py) {
   initAudioEngine();
+
+  if (gameState === "DYING_ANIMATION") {
+    return;
+  }
 
   if (showSettingsModal) {
     handleSettingsModalClick(px, py);
@@ -431,6 +442,10 @@ function activateCreatorDebugMode() {
 function keyPressed() { 
   initAudioEngine();
 
+  if (gameState === "DYING_ANIMATION") {
+    return;
+  }
+
   if (gameState === "ITEM_GUIDE") {
     if (millis() - guideOpenTime > 200) {
       activeGuideData = null;
@@ -596,7 +611,7 @@ function keyPressed() {
 
   if (gameState !== "PLAYING") return;
 
-  // <--- 新增以下 11 行：點按一下 Ctrl 或 Shift 切換衝刺 / 時光領域
+  // 點按一下 Ctrl 或 Shift 切換衝刺 / 時光領域
   if (keyCode === CONTROL || keyCode === SHIFT) {
     if (powerLevel === 3 && (powerType === "speed" || powerType === "chrono")) {
       dashToggleActive = !dashToggleActive;
@@ -622,7 +637,7 @@ function keyPressed() {
   if (key === 'f' || key === 'F') { 
     triggerFireAction();
   }
-  // <--- 新增：2-4 黑暗礦坑按 [E] 或 [T] 在腳下插一根火把
+  // 2-4 黑暗礦坑按 [E] 或 [T] 在腳下插一根火把
   if ((key === 'e' || key === 'E' || key === 't' || key === 'T') && currentWorld === 2 && currentLevel === 4) {
     placeTorchAtPlayer();
   }
@@ -641,6 +656,7 @@ function keyPressed() {
 } 
 
 function keyReleased() {
+  if (gameState === "DYING_ANIMATION") return;
   if ((keyCode === 32 || keyCode === 87) && gameState === "PLAYING") {
     if (velocityY < 0 && powerType !== "feather") {
       velocityY = 0;      
