@@ -47,9 +47,40 @@ function takeDamage() {
 }
 
 function handlePlayerDeath() {
-  if (tryChronoTimeRewind()) return; // <--- 新增這行（掉進深淵/岩漿也能回溯保命）
-  lives--;
+  if (tryChronoTimeRewind()) return; // 掉進深淵/岩漿也能回溯保命
+  if (gameState === "DYING_ANIMATION") return; // 防重複觸發
   playSFX("death");
+  deathAnimX = characterX;
+  let maxVisibleY = max(TILE_SIZE * 2, (levelMap.length - 1.5) * TILE_SIZE);
+  deathAnimY = constrain(characterY, TILE_SIZE * 2, maxVisibleY);
+  gameState = "DYING_ANIMATION";
+  deathAnimTimer = millis();
+  deathAnimStage = 1;
+  deathAnimFinished = false;
+  isAttacking = false;
+  isCrouching = false;
+  isGliding = false;
+}
+
+function finishDeathAnimation() {
+  if (deathAnimFinished) return; // 防重複扣命
+  deathAnimFinished = true;
+  deathAnimTimer = 0;
+  deathAnimStage = 0;
+
+  if (typeof touchControls !== "undefined") {
+    touchControls.left = false;
+    touchControls.right = false;
+    touchControls.down = false;
+    touchControls.jump = false;
+    touchControls.fire = false;
+  }
+  prevTouchJump = false;
+  prevTouchFire = false;
+  dashToggleActive = false;
+  mobileDashLocked = false;
+
+  lives--;
   if (lives <= 0) {
     lives = 0;
     gameState = "GAME_OVER";
@@ -142,7 +173,7 @@ function drawPlayerFireballs() {
     ellipse(0, 0, 10, 10);
     pop();
   }
-} // ← 原本這裡多了一個 }，已移除
+}
 
 function updateCactusNeedles() {
   for (let i = cactusNeedles.length - 1; i >= 0; i--) {
