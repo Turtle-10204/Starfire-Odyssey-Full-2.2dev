@@ -129,6 +129,17 @@ let invincibleTimer = 0;
 
 let starTimer = 0;               
 
+// 死亡動畫狀態（DYING_ANIMATION 聚光燈縮光圈演出）
+let deathAnimX = 100;
+
+let deathAnimY = 100;
+
+let deathAnimTimer = 0;
+
+let deathAnimStage = 0;
+
+let deathAnimFinished = false;
+
 // 加速菇衝刺蓄力系統與撞擊反彈
 let currentSprintBonus = 0;
 
@@ -165,4 +176,4 @@ let movingPlatforms = [];
 
 let platformCarryDX = 0;
 
-let cameraX = 0;      
+let cameraX = 0;
