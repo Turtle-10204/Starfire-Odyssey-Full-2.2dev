@@ -18,6 +18,8 @@ let squatSpriteSheet;
 
 let squatMoveSpriteSheet;  
 
+let deadSpriteSheet;
+
 let muzzleFlashImg;     
 
 let hitEffectImg;       
@@ -36,6 +38,7 @@ function preload() {
   
   squatSpriteSheet = loadImage("action/squat_down/squat_down.png", () => {}, () => console.error("找不到蹲下圖片")); 
   squatMoveSpriteSheet = loadImage("action/squat_down_move/squat_down_move.png", () => {}, () => console.error("找不到蹲下走路圖片")); 
+  deadSpriteSheet = loadImage("action/dead/momi_dead.png", () => {}, () => console.error("找不到死亡動畫圖片"));
 
   attackSpriteSheet = loadImage("action/attackA/ALL5.png", () => {}, () => console.error("找不到攻擊圖片")); 
   muzzleFlashImg = loadImage("action/special_effects/hit-removebg-preview.png", () => {}, () => console.error("找不到槍口特效")); 
