@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+  </head>
+
+  <body>
+    <!-- 載入順序很重要：先設定與狀態，再各功能模組，最後才是 sketch.js -->
+    <script src="world_maps.js"></script>
+    <script src="config.js"></script>
+    <script src="state.js"></script>
+    <script src="assets.js"></script>
+    <script src="audio.js"></script>
+    <script src="maps_world1.js"></script>
+    <script src="level_tiles.js"></script>
+    <script src="entities.js"></script>
+    <script src="player.js"></script>
+    <script src="boss_castle.js"></script>
+    <script src="world2_miner.js"></script>
+    <script src="world2_sandworm.js"></script>
+    <script src="world2_atmosphere.js"></script>
+    <script src="ui_hud.js"></script>
+    <script src="ui_modals.js"></script>
+    <script src="ui_screens.js"></script>
+    <script src="ui_worldmap.js"></script>
+    <script src="input.js"></script>
+    <script src="level_flow.js"></script>
+    <script src="sketch.js"></script>
+  </body>
+</html>
