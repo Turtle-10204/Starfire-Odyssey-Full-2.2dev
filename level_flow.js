@@ -10,6 +10,10 @@ function exitToWorldMapRestoreEntry() {
   reservedItem = levelEntrySnapshot.reservedItem;
   coinCount = levelEntrySnapshot.coinCount;
   score = levelEntrySnapshot.score;
+  deathAnimTimer = 0;
+  deathAnimStage = 0;
+  deathAnimFinished = false;
+  dashToggleActive = false;
   mobileDashLocked = false;
   showSettingsModal = false;
   showExitMapConfirmModal = false;
@@ -21,6 +25,19 @@ function exitToWorldMapRestoreEntry() {
 }
 
 function startLevel(levelNum, resetRunStats, keepPowerup = false) {
+  deathAnimTimer = 0;
+  deathAnimStage = 0;
+  deathAnimFinished = false;
+  if (typeof touchControls !== "undefined") {
+    touchControls.left = false;
+    touchControls.right = false;
+    touchControls.down = false;
+    touchControls.jump = false;
+    touchControls.fire = false;
+  }
+  prevTouchJump = false;
+  prevTouchFire = false;
+
   castleFlagRaised = false;
   castleFlagProgress = 0;
   flagDropY = 0;
