@@ -85,6 +85,8 @@ const SQUAT_FRAME_COUNT = 5;
 
 const SQUAT_MOVE_FRAME_COUNT = 12;  
 
+const DEAD_FRAME_COUNT = 12;
+
 const BASE_FRAME_INTERVAL = 100;  
 
 const MOVE_SPEED = 4; 
@@ -98,4 +100,4 @@ const BASE_HITBOX_H = 46;
 
 const BIG_HITBOX_W = 28;
 
-const BIG_HITBOX_H = 74;  
+const BIG_HITBOX_H = 74;
